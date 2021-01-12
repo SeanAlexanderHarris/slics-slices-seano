@@ -7,9 +7,9 @@ import attachNamesAndPrices from './attachNamesAndPrices';
 export default function usePizza({ pizzas, values }) {
   // 1. Create some state to hold our order
   // We got rid of this line because we moved useState up to the provider
-  // const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState([]);
   // Now we access both our state and our updater function (setOrder) via context
-  const [order, setOrder] = useContext(OrderContext);
+  // const [order, setOrder] = useContext(OrderContext);
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
