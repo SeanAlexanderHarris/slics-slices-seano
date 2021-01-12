@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import SEO from '../components/SEO';
 
@@ -23,11 +24,12 @@ const SingleBeerStyles = styled.div`
   }
 `;
 
-export default function BeerPage({ data }) {
+export default function BeersPage({ data }) {
+  console.log('BEERS', data);
   return (
     <>
       <SEO title={`Beers! We got ${data.beers.nodes.length} beers`} />
-      <h2 className="center">We got ${data.beers.nodes.length} beers baby!</h2>
+      <h2 className="center">We got {data.beers.nodes.length} beers baby!</h2>
       <BeerGridStyles>
         {data.beers.nodes.map((beer) => {
           const rating = Math.round(beer.rating.average);
@@ -50,3 +52,20 @@ export default function BeerPage({ data }) {
     </>
   );
 }
+
+export const query = graphql`
+  query {
+    beers: allBeer {
+      nodes {
+        id
+        name
+        price
+        image
+        rating {
+          average
+          reviews
+        }
+      }
+    }
+  }
+`;
