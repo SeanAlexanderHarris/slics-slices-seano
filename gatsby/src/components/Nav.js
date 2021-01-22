@@ -1,4 +1,9 @@
 import React from 'react';
+import IdentityModal, {
+  useIdentityContext,
+} from 'react-netlify-identity-widget';
+import 'react-netlify-identity-widget/styles.css'; // delete if you want to bring your own CSS
+
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import Logo from './Logo';
@@ -49,8 +54,63 @@ const NavStyles = styled.nav`
 `;
 
 export default function Nav() {
+  const identity = useIdentityContext();
+  const [dialog, setDialog] = React.useState(false);
+  const name =
+    (identity &&
+      identity.user &&
+      identity.user.user_metadata &&
+      identity.user.user_metadata.full_name) ||
+    'NoName';
+  const avatarUrl =
+    identity &&
+    identity.user &&
+    identity.user.user_metadata &&
+    identity.user.user_metadata.avatar_url;
+
   return (
     <NavStyles>
+      <header className="App-header">
+        {identity && identity.isLoggedIn ? (
+          <>
+            <h1> hello {name}!</h1>
+            {avatarUrl && (
+              <img
+                alt="user name"
+                src={avatarUrl}
+                style={{ height: 100, borderRadius: '50%' }}
+              />
+            )}
+            <button
+              type="button"
+              className="btn"
+              style={{ maxWidth: 400, background: 'orangered' }}
+              onClick={() => setDialog(true)}
+            >
+              LOG OUT
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              className="btn"
+              style={{ maxWidth: 400, background: 'darkgreen' }}
+              onClick={() => setDialog(true)}
+            >
+              LOG IN
+            </button>
+          </>
+        )}
+
+        <IdentityModal
+          showDialog={dialog}
+          onCloseDialog={() => setDialog(false)}
+          onLogin={(user) => console.log('hello ', user?.user_metadata)}
+          onSignup={(user) => console.log('welcome ', user?.user_metadata)}
+          onLogout={() => console.log('bye ', name)}
+        />
+      </header>
       <ul>
         <li>
           <Link to="/">Hot Now</Link>

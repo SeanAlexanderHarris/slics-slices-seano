@@ -3,6 +3,7 @@ import useLatestData from '../utils/useLatestData';
 import { HomePageGrid } from '../styles/Grids';
 import LoadingGrid from '../components/LoadingGrid';
 import ItemGrid from '../components/ItemGrid';
+import Identity from '../components/Identity';
 
 function CurrentlySlicing({ sliceMasters }) {
   return (
@@ -39,6 +40,7 @@ export default function HomePage() {
 
   return (
     <div className="center">
+      <Identity />
       <h1>The Best Pizza Downtown!</h1>
       <p>Open 11am to 11pm Every Single Day</p>
       <HomePageGrid>

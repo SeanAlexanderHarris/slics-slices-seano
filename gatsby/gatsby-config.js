@@ -22,5 +22,11 @@ export default {
         token: process.env.SANITY_TOKEN,
       },
     },
+    {
+      resolve: `gatsby-plugin-netlify-identity`,
+      options: {
+        url: `https://slics-slices-seano.netlify.app`, // required!
+      },
+    },
   ],
 };

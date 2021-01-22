@@ -1,5 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+
+// auth
+import { IdentityContextProvider } from 'react-netlify-identity-widget';
+import 'react-netlify-identity-widget/styles.css';
+import '@reach/tabs/styles.css';
+
 import Footer from './Footer';
 import Nav from './Nav';
 import 'normalize.css';
@@ -31,7 +37,7 @@ const ContentStyles = styled.div`
 
 export default function Layout({ children }) {
   return (
-    <>
+    <IdentityContextProvider url="https://slics-slices-seano.netlify.app">
       <GlobalStyles />
       <Typography />
       <SiteBorderStyles>
@@ -41,6 +47,6 @@ export default function Layout({ children }) {
           <Footer />
         </ContentStyles>
       </SiteBorderStyles>
-    </>
+    </IdentityContextProvider>
   );
 }
